@@ -1,0 +1,9 @@
+{
+  "name": "TotemTestApp",
+  "version": "0.0.1",
+  "description": "A test app for Totem built using HAPI.App",
+  "engine" : [ "node 0.8.x" ],
+  "dependencies": {
+      "hapi.app.server": "0.0.x"
+  }
+}

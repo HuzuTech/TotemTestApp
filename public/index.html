@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="totem.js"></script>
+    <script type="text/javascript" src="hapiConfig.js"></script>
+    <script type="text/javascript">
+      $(window).one("hapiReady", function() {
+          // set the global default representation
+          totem.representation("male");
+          // get a handle on the canvas element
+          canvas = $("#canvas").get(0)
+          // get an inventory
+          totem.inventory().then(function(inventory) {
+              // get all assets, categorised
+              console.log(inventory.get());
+              // get all assets belonging to the 'free' good, categorised
+              console.log(inventory.get({ good: "free" }));
+              // get all assets in the category 'top'
+              console.log(inventory.get({ category: "top" })); 
+          });
+          // get and display categories
+          totem.categories().then(function(categories) {
+             console.log(categories); 
+          });
+          // get and display goods available to the user
+          totem.goods().then(function(goods) {
+             console.log(goods); 
+          });
+          // create a new avatar
+          var avatar = totem.avatar();
+          // randomise it
+          totem.randomise(avatar)
+          // save it
+              .then(function() { return avatar.save(); })
+          // draw it
+              .then(function() { return totem.drawOn(avatar, canvas); })
+          // get and log all user avatars
+              .then(function() { return totem.avatars(); })
+              .then(function(avatars) {
+                  console.log(avatars);
+              })
+          // get another inventory
+              .then(function() { return totem.inventory(); })
+              .then(function(inventory) {
+                  // get all assets in the 'hair' category
+                  hair = inventory.get({ category: "hair" });
+                  // equip the first hair asset to the avatar
+                  avatar.equip("hair", hair[0]);
+                  // globally colourise the avatar
+                  avatar.colour1("#ff0000");
+                  // draw it again
+                  totem.drawOn(avatar, canvas);
+              })
+          });
+    </script>
+    <script type="text/javascript" src="hapiBoot.js"></script>
+</head>
+<body>
+  <iframe
+     id="hapi-login"
+     style="display: none; border: none;"
+     width="100%"
+     height="800px">
+  </iframe>
+  <div
+     id="hapi-app"
+     style="display: none;">
+    <canvas id="canvas" width="400" height="800"></canvas>
+  </div>
+</body>
+</html>

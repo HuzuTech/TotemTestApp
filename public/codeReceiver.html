@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <script type="text/javascript">
+    var q = window.location.search;
+    var found = /authCode=([^&]+)/.exec(q);
+    var code;
+    if (found && found.length > 0) {
+        code = found[1];
+        // We'd need to send the redirectURI in the query
+        // string in order to access and check the domain here.
+        window.parent.postMessage(code, "*");
+    }
+    else alert("Didn't receive an authorization code!");
+  </script>
+</head>
+</html>
