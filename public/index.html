@@ -17,7 +17,7 @@
               // get all assets, categorised
               console.log(inventory.get());
               // get all assets belonging to the 'free' good, categorised
-              console.log(inventory.get({ good: "Default" }));
+              console.log(inventory.get({ good: "free" }));
               // get all assets in the category 'top'
               console.log(inventory.get({ category: "top" }));
           });
@@ -25,7 +25,7 @@
           totem.categories().then(function(categories) {
              console.log(categories); 
           });
-          // get and display goods available to the user
+          // get and display goods
           totem.goods().then(function(goods) {
              console.log(goods); 
           });
@@ -51,13 +51,6 @@
                   avatar.equip("hair", hair[0]);
                   // globally colourise the avatar
                   avatar.colour1("#ff0000");
-                  // draw it again
-                  totem.drawOn(avatar, canvas)
-                      .then(function() {
-                         // locally colourise the top category
-                          avatar.colour1("#00ff00", "top");
-                          totem.drawOn(avatar, canvas);
-                      });
               });
           });
     </script>
