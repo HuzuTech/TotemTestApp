@@ -23,18 +23,18 @@
           });
           // get and display categories
           totem.categories().then(function(categories) {
-             console.log(categories); 
+             console.log(categories);
           });
           // get and display goods
           totem.goods().then(function(goods) {
-             console.log(goods); 
+             console.log(goods);
           });
           // create a new avatar
           var avatar = totem.avatar();
           // randomise it
           totem.randomise(avatar)
-          // save it
-              .then(function() { return avatar.save(); })
+          // // save it
+          //     .then(function() { return avatar.save(); })
           // draw it
               .then(function() { return totem.drawOn(avatar, canvas); })
           // get and log all user avatars
@@ -48,11 +48,21 @@
                   // get all assets in the 'hair' category
                   hair = inventory.get({ category: "hair" });
                   // equip the first hair asset to the avatar
+                  console.log("equipping hair");
                   avatar.equip("hair", hair[0]);
-                  // globally colourise the avatar
-                  avatar.colour1("#ff0000");
+                  // colourise the avatar's top
+                  console.log("changing colour");
+                  avatar.colour1("#ff0000", "top");
+                  // randomise the avatar with a colour palette
+                  console.log("randomising");
+                  totem.randomise(avatar, { palette: [["#0000ff", "#00ff00"], ["#ffff00", "#00ffff"]] })
+                      .then(function() {
+                          // sex change
+                          console.log("randomising");
+                          return totem.randomise(avatar, { representation: "female" });
+                      });
+                  });
               });
-          });
     </script>
     <script type="text/javascript" src="hapiBoot.js"></script>
 </head>
